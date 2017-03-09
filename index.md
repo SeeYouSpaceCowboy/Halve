@@ -3,7 +3,7 @@ layout: home
 ---
 # Hello
 
-This theme is Jekyll port of [vangeltzo.com](http://vangeltzo.com/) (by [Vangelis Tzortzis](https://github.com/srekoble)).
+I was born and raised in New York. My skills consist of Ruby on Rails, Node.Js + Express, React + Redux & SQL. (SQLite, Mongodb and Postgres)
 
 To learn how to install and use this theme check out the [installation guide](http://taylantatli.me/Halve/halve-theme/) for more information.
 
