@@ -5,15 +5,15 @@
 
 - title: Smart Homework
   url: https://play.google.com/store/apps/details?id=seeyouspacecowboy.smarthomework&hl=en
-  image: smart-homework.jpg
+  image: images/smart-homework.jpg
   completed: true
 
 - title: Pair Social Stocks
   url: http://taylantatli.me/Moon
-  image: https://cloud.githubusercontent.com/assets/754514/14509720/61c61058-01d6-11e6-93ab-0918515ecd56.png
+  image: https://static.pexels.com/photos/200749/pexels-photo-200749.jpeg
   completed: false
 
 - title: Too Many Cakes
   url: http://taylantatli.me/Ramme
-  image: https://raw.githubusercontent.com/TaylanTatli/Ramme/master/assets/img/screenshot-post.png
+  image: https://static.pexels.com/photos/14107/pexels-photo-14107.jpeg
   completed: false
