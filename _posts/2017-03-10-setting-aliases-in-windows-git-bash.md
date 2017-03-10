@@ -40,6 +40,12 @@ Now once it's open on your favorite editor, you can set aliases
 alias workspace="cd ~/your-directory-path"
 ```
 
+Now save this by typing
+
+```
+$ source .bashrc
+```
+
 for example I have a `Workspace` for where I write all my code and I have an alias
 `$ workspace` which will immediately cd me into that directory.
 
@@ -47,4 +53,4 @@ for example I have a `Workspace` for where I write all my code and I have an ali
 alias workspace="cd ~/Documents/Workspace/"
 ```
 
-And there you go. Hope you now have alias in your Windows Git Bash profile. 
+And there you go. Hope you now have alias in your Windows Git Bash profile.
