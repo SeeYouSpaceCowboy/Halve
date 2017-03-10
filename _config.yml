@@ -37,12 +37,12 @@ github:            SeeYouSpaceCowboy
 stackoverflow:     2469361/seeyouspacecowboy   from a "http://stackoverflow.com/users/2469361/seeyouspacecowboy" link
 linkedin:          mohammedchisti
 #xing:              username
-#instagram:          username
+#instagram:         username
 #lastfm:            username
 #tumblr:            username
 #pinterest:         username
 #foursquare:        username
-#steam:              username
+#steam:             username
 #dribbble:          username
 #youtube:           username
 #soundcloud:        username
@@ -52,7 +52,7 @@ linkedin:          mohammedchisti
 #keybase:           username
 #xmpp:              username@server.com
 #hackernews:        username
-# behance:           username
+#behance:           username
 
 # Gems
 gems:
