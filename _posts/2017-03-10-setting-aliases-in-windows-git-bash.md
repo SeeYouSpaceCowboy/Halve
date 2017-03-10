@@ -28,7 +28,7 @@ $ vim .bashrc
 ```
 
 or just open it in your folder and then open it in your favorite editor if you
-don't have that set up with your git bash.
+don't have a editor shortcut set up with your git bash.
 
 ```
 $ start .bashrc
