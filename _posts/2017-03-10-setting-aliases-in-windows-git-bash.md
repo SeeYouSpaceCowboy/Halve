@@ -9,8 +9,6 @@ tags:
   - Git Bash
 ---
 
-# Setting Aliases In Windows Git Bash Profile
-
 If you have a Windows computer and use a Git Bash to company you while you code,
 there are some shortcuts you need to know about.
 

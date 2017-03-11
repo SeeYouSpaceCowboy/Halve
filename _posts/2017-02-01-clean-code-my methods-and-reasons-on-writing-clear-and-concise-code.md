@@ -97,7 +97,7 @@ The single responsibility rule is to make sure a method does one job and only on
 ```ruby
 def main()
     name = get_full_name()
-    
+
     puts(name)
 end
 ```
