@@ -32,7 +32,7 @@ name = "Bob"
 car = "Mustang"
 ```
 
-A Set Should Become A Classes
+### A Set Should Become A Classes
 
 Clean code on classes can be an entire blog on its own, but to begin with you must know when to use a class instead of variables. This happens whenever you notice a pattern or repeated keyword for a set of variables.
 
