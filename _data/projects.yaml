@@ -8,6 +8,11 @@
   image: images/smart-homework.jpg
   completed: true
 
+- title: Socket.io Chat App
+  url:
+  image: images/socket-io-chat-app.png
+  completed: false
+
 - title: Pair Social Stocks
   url: http://taylantatli.me/Moon
   image: https://static.pexels.com/photos/200749/pexels-photo-200749.jpeg
