@@ -14,9 +14,9 @@
   completed: false
 
 - title: Pair Social Stocks
-  url: http://taylantatli.me/Moon
+  url: https://github.com/SeeYouSpaceCowboy/pair-stocks-frontend
   image: https://static.pexels.com/photos/200749/pexels-photo-200749.jpeg
-  completed: false
+  completed: true
 
 - title: Too Many Cakes
   url: http://taylantatli.me/Ramme
