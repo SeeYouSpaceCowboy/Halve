@@ -13,8 +13,7 @@ If you have a Windows computer and use a Git Bash to company you while you code,
 there are some shortcuts you need to know about.
 
 To set up your profile, you have to first go to your home directory with `cd`
-then creating a file in that directory called `.bashrc`
-.
+then creating a file in that directory called `.bashrc`.
 ```
  $ cd
  $ touch .bashrc
