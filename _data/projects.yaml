@@ -14,8 +14,8 @@
   completed: false
 
 - title: Pair Social Stocks
-  url: https://github.com/SeeYouSpaceCowboy/pair-stocks-frontend
-  image: https://static.pexels.com/photos/200749/pexels-photo-200749.jpeg
+  url: https://pair-social-stocks-frontend.herokuapp.com/
+  image: images/pair.jpg
   completed: true
 
 - title: Too Many Cakes
