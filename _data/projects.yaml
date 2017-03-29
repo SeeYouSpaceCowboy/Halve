@@ -3,22 +3,22 @@
   image: images/forhumans.jpg
   completed: true
 
+- title: Diveo - Work In Progress
+  url: http://forhumans.herokuapp.com
+  image: images/diveo.png
+  completed: true
+
 - title: Smart Homework
   url: https://play.google.com/store/apps/details?id=seeyouspacecowboy.smarthomework&hl=en
   image: images/smart-homework.jpg
   completed: true
-
-- title: Socket.io Chat App
-  url:
-  image: images/socket-io-chat-app.png
-  completed: false
 
 - title: Pair Social Stocks
   url: https://pair-social-stocks-frontend.herokuapp.com/
   image: images/pair.jpg
   completed: true
 
-- title: Too Many Cakes
-  url: http://taylantatli.me/Ramme
-  image: https://static.pexels.com/photos/14107/pexels-photo-14107.jpeg
+- title: Socket.io Chat App
+  url:
+  image: images/socket-io-chat-app.png
   completed: false
