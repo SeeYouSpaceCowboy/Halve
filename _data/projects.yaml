@@ -8,7 +8,7 @@
   image: images/a-junior-dev.png
   completed: true
 
-- title: Diveo - In Progress
+- title: Diveo
   url: http://forhumans.herokuapp.com
   image: images/diveo.png
   completed: false
