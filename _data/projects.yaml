@@ -3,12 +3,12 @@
   image: images/forhumans.jpg
   completed: true
 
-- title: A Junior Dev
+- title: A Junior Dev - In Progress
   url: http://ajuniordev.herokuapp.com
-  image: images/diveo.png
+  image: images/a-junior-dev.png
   completed: true
 
-- title: Diveo - Incomplete
+- title: Diveo - In Progress
   url: http://forhumans.herokuapp.com
   image: images/diveo.png
   completed: false
