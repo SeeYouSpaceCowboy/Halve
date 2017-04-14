@@ -9,7 +9,7 @@ tags:
   - Rails
   - SQL
 ---
-# Still In Progres
+# Still In Progress
 This blog isn't finished and is still in progress.
 
 SQL databases are extremely important in building software applications. They allow us to persist data in our application. If we can't persist data, then you'd have to recreate your profile every time you log into Facebook. Using Rails Active Record, I'll show you how to make a simple table, all the way to an entire `Followings` table you would usually see in Instagram. Where you have many followers and you can also follow many people.
