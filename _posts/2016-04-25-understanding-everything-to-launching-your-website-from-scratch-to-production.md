@@ -13,7 +13,7 @@ tags:
 
 # Understanding Everything to Launching Your Website from Scratch to Production - Full Stack Guide
 
-![Stack of Start Ups](images/rainy-japan.jpg)
+![Stack of Start Ups](/images/rainy-japan.jpg)
 
 When I started my journey on becoming a Full Stack Web Developer, it was very difficult for me to figure out the whole picture of setting up a site from scratch. In my opinion, I believe everyone should understand what the whole picture means. It'll help us make better decisions about our stack. A backend who's aware of the frontend will know how to design an API for easier development for the frontend. A mobile developer who's aware of the backend will know how to make better API calls or even ask for reasonable tweaks to the backend so they have an easier app API response. Because of this I've decided to create a graph of everything I've learned about Full Stack Development. This isn't the only way to set up a site, but usually the way it's set up I've seen.
 
