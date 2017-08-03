@@ -1,3 +1,8 @@
+- title: WhereTo
+  url: https://github.com/SeeYouSpaceCowboy/yelp-search-nodejs
+  image: images/whereto.jpg
+  completed: true
+
 - title: For Humans
   url: http://forhumans.herokuapp.com
   image: images/forhumans.jpg
