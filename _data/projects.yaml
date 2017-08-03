@@ -3,14 +3,14 @@
   image: images/whereto.jpg
   completed: true
 
-- title: For Humans
-  url: http://forhumans.herokuapp.com
-  image: images/forhumans.jpg
-  completed: true
-
 - title: A Junior Dev - In Progress
   url: http://ajuniordev.herokuapp.com
   image: images/a-junior-dev.png
+  completed: true
+
+- title: For Humans
+  url: http://forhumans.herokuapp.com
+  image: images/forhumans.jpg
   completed: true
 
 - title: Diveo
@@ -18,14 +18,14 @@
   image: images/diveo.png
   completed: false
 
-- title: Smart Homework
-  url: https://play.google.com/store/apps/details?id=seeyouspacecowboy.smarthomework&hl=en
-  image: images/smart-homework.jpg
-  completed: true
-
 - title: Pair Social Stocks
   url: https://pair-social-stocks-frontend.herokuapp.com/
   image: images/pair.jpg
+  completed: true
+
+- title: Smart Homework
+  url: https://play.google.com/store/apps/details?id=seeyouspacecowboy.smarthomework&hl=en
+  image: images/smart-homework.jpg
   completed: true
 
 - title: Socket.io Chat App
