@@ -16,6 +16,6 @@ of Ruby on Rails, Node.Js + Express, React + Redux, Java + Android
 
 Feel free to send me an e-mail, read my blog posts or look at some of my work.
 
-Thanks for Visiting.
+Thanks for Visiting
 
 <a href="/assets/resume-mohammed-chisti.pdf" download>Resume</a>
