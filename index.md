@@ -18,4 +18,4 @@ Feel free to send me an e-mail, read my blog posts or look at some of my work.
 
 Thanks for Visiting.
 
-<a href="/assets/resume-mohammed-chisti.pdf" download>
+<a href="/assets/resume-mohammed-chisti.pdf" download>Resume</a>
