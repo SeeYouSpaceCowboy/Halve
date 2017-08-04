@@ -17,5 +17,3 @@ of Ruby on Rails, Node.Js + Express, React + Redux, Java + Android
 Feel free to send me an e-mail, read my blog posts or look at some of my work.
 
 Thanks for Visiting
-
-<a href="https://seeyouspacecowboy.github.io/portfolio/assets/other/resume-mohammed-chisti.pdf" download>Resume</a>
