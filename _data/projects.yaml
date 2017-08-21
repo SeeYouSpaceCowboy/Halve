@@ -1,5 +1,5 @@
 - title: WhereTo
-  url: https://github.com/SeeYouSpaceCowboy/yelp-search-nodejs
+  url: https://github.com/SeeYouSpaceCowboy/yelp-search-reactjs
   image: images/whereto.png
   completed: true
 
@@ -13,22 +13,7 @@
   image: images/forhumans.jpg
   completed: true
 
-- title: Diveo
-  url: http://forhumans.herokuapp.com
-  image: images/diveo.png
-  completed: false
-
-- title: Pair Social Stocks
-  url: https://pair-social-stocks-frontend.herokuapp.com/
-  image: images/pair.jpg
-  completed: true
-
 - title: Smart Homework
   url: https://play.google.com/store/apps/details?id=seeyouspacecowboy.smarthomework&hl=en
   image: images/smart-homework.jpg
   completed: true
-
-- title: Socket.io Chat App
-  url:
-  image: images/socket-io-chat-app.png
-  completed: false

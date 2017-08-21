@@ -1,185 +1,608 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.1.2">Jekyll</generator><link href="https://seeyouspacecowboy.github.io/halve/feed.xml" rel="self" type="application/atom+xml" /><link href="https://seeyouspacecowboy.github.io/halve/" rel="alternate" type="text/html" /><updated>2017-03-11T00:46:58-05:00</updated><id>https://seeyouspacecowboy.github.io/halve/</id><title>Mohammed Chisti</title><subtitle>Fullstack Web Developer</subtitle><entry><title>Setting Aliases In Windows Git Bash Profile</title><link href="https://seeyouspacecowboy.github.io/halve/setting-aliases-in-windows-git-bash/" rel="alternate" type="text/html" title="Setting Aliases In Windows Git Bash Profile" /><published>2017-03-10T00:00:00-05:00</published><updated>2017-03-10T00:00:00-05:00</updated><id>https://seeyouspacecowboy.github.io/halve/setting-aliases-in-windows-git-bash</id><content type="html" xml:base="https://seeyouspacecowboy.github.io/halve/setting-aliases-in-windows-git-bash/">If you have a Windows computer and use a Git Bash to company you while you code,
-there are some shortcuts you need to know about.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-08-21T03:50:48-04:00</updated><id>http://localhost:4000/</id><title type="html">Mohammed Chisti</title><subtitle>Fullstack Web Developer</subtitle><entry><title type="html">Adding SASS/SCSS to your Current Create React App Project without Ejecting</title><link href="http://localhost:4000/adding-SASS-SCSS-to-your-current-create-react-app-project-without-ejecting/" rel="alternate" type="text/html" title="Adding SASS/SCSS to your Current Create React App Project without Ejecting" /><published>2017-05-07T00:00:00-04:00</published><updated>2017-05-07T00:00:00-04:00</updated><id>http://localhost:4000/adding-SASS/SCSS-to-your-current-create-react-app-project-without-ejecting</id><content type="html" xml:base="http://localhost:4000/adding-SASS-SCSS-to-your-current-create-react-app-project-without-ejecting/">&lt;p&gt;I’ve usually used frameworks for CSS and didn’t really worry too much about having SCSS or SASS support for my React projects, but on a recent project of mine, I’ve decided that I’m going to build my own CSS framework and grid for myself, since I wanted some of my own tweaking flexibility. While building my own CSS framework, I’ve had so many redundancies in my CSS that I knew it was time that I just had to port to SCSS.&lt;/p&gt;
+&lt;h2 id=&quot;getting-started&quot;&gt;Getting Started&lt;/h2&gt;
+&lt;p&gt;The way we’re going to support SCSS is sort of how Webpack picks up our ES6 Javascript using Babel to recreate regular Javascript. We’ll be taking our SCSS files and then recreate regular CSS files that our &lt;code class=&quot;highlighter-rouge&quot;&gt;index.html&lt;/code&gt; can read.
+The way my project tree is structured is the following :&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;project-dir
+├── .git
+├── .gitignore
+├── node_modules
+├── package.json
+├── public
+│   ├── stylesheets
+│   │   └── index.css   
+│   └── index.html
+└── src
+    ├── components
+    ├── App.js
+    └── index.js
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;And I hope you use it as a reference for this blog. We’ll create a new folder for our SCSS files so that their separate from the CSS folder when their built. Let’s create a new &lt;code class=&quot;highlighter-rouge&quot;&gt;index.scss&lt;/code&gt; file in our new folder with the following :&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ mkdir public/scss-stylesheets
+$ touch public/scss-stylesheets/index.scss
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;After your tree should now look like this :&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;project-dir
+├── .git
+├── .gitignore
+├── node_modules
+├── package.json
+├── public
+│   ├── scss-stylesheets
+│   │   └── index.scss   
+│   ├── stylesheets
+│   │   └── index.css   
+│   └── index.html
+└── src
+    ├── components
+    ├── App.js
+    └── index.js
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-To set up your profile, you have to first go to your home directory with `cd`
-then creating a file in that directory called `.bashrc`
-.
-```
- $ cd
+&lt;p&gt;You’ll also want to install the following npm package:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;npm i --save-dev node-sass
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Then in your &lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt; file located in your project root directory add the following two lines to &lt;code class=&quot;highlighter-rouge&quot;&gt;scripts&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s2&quot;&gt;&quot;script&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;build-css&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;node-sass public/scss-stylesheets -o public/stylesheets&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;watch-css&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;npm run build-css &amp;amp;&amp;amp; node-sass public/scss-stylesheets -o public/stylesheets --watch --recursive&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;You can change entry path &lt;code class=&quot;highlighter-rouge&quot;&gt;public/scss-stylesheets&lt;/code&gt; on both &lt;code class=&quot;highlighter-rouge&quot;&gt;build-css&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;watch-css&lt;/code&gt; to any folder you prefer instead. Same holds true for the output path &lt;code class=&quot;highlighter-rouge&quot;&gt;public/stylesheets&lt;/code&gt; for the code above. The &lt;code class=&quot;highlighter-rouge&quot;&gt;build-css&lt;/code&gt; let you build the SCSS files to CSS files once, but if you want your project do this while you code, you run &lt;code class=&quot;highlighter-rouge&quot;&gt;watch-css&lt;/code&gt; and it’ll reload as you change you SCSS file. You could try this with the following :&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ npm run watch-css
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Now you might be thinking we’re already watching our react project when we run &lt;code class=&quot;highlighter-rouge&quot;&gt;npm start&lt;/code&gt; and we’d have to then also watch SCSS with &lt;code class=&quot;highlighter-rouge&quot;&gt;npm run watch-css&lt;/code&gt;. A bit of an annoyance, so why don’t we fix that bit too, so that SCSS is also watched when &lt;code class=&quot;highlighter-rouge&quot;&gt;npm start&lt;/code&gt; is ran. We’re going to need the following package to be installed :&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ npm install --save-dev npm-run-all
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Then change the following lines from your package.json ( &lt;code class=&quot;highlighter-rouge&quot;&gt;—&lt;/code&gt; are lines we’re getting rid of while &lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt; are lines we’re adding) :&lt;/p&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s2&quot;&gt;&quot;scripts&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+     &lt;span class=&quot;s2&quot;&gt;&quot;build-css&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;node-sass src/ -o src/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+     &lt;span class=&quot;s2&quot;&gt;&quot;watch-css&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;npm run build-css &amp;amp;&amp;amp; node-sass src/ -o src/ --watch --recursive&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;    &lt;span class=&quot;s2&quot;&gt;&quot;start&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;react-scripts start&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;    &lt;span class=&quot;s2&quot;&gt;&quot;build&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;react-scripts build&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;    &lt;span class=&quot;s2&quot;&gt;&quot;start-js&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;react-scripts start&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;    &lt;span class=&quot;s2&quot;&gt;&quot;start&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;npm-run-all -p watch-css start-js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;    &lt;span class=&quot;s2&quot;&gt;&quot;build&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;npm run build-css &amp;amp;&amp;amp; react-scripts build&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+     &lt;span class=&quot;s2&quot;&gt;&quot;test&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;react-scripts test --env=jsdom&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+     &lt;span class=&quot;s2&quot;&gt;&quot;eject&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;react-scripts eject&quot;&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Once you’re done with it all you can now just write the following and you should have SCSS support on your project :&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ npm start
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;bonus--gitignore&quot;&gt;Bonus : .gitignore&lt;/h2&gt;
+
+&lt;p&gt;So that we’re not adding redundant code to our git repo, we can add the following folder path to our &lt;code class=&quot;highlighter-rouge&quot;&gt;.gitignore&lt;/code&gt; :&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;public/stylesheets
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Hope you liked my posts! I’d love any feedback and follow me more posts.&lt;/p&gt;</content><author><name></name></author><category term="Mac" /><category term="Git" /><category term="React" /><summary type="html">I’ve usually used frameworks for CSS and didn’t really worry too much about having SCSS or SASS support for my React projects, but on a recent project of mine, I’ve decided that I’m going to build my own CSS framework and grid for myself, since I wanted some of my own tweaking flexibility. While building my own CSS framework, I’ve had so many redundancies in my CSS that I knew it was time that I just had to port to SCSS. Getting Started The way we’re going to support SCSS is sort of how Webpack picks up our ES6 Javascript using Babel to recreate regular Javascript. We’ll be taking our SCSS files and then recreate regular CSS files that our index.html can read. The way my project tree is structured is the following : project-dir ├── .git ├── .gitignore ├── node_modules ├── package.json ├── public │ ├── stylesheets │ │ └── index.css │ └── index.html └── src ├── components ├── App.js └── index.js And I hope you use it as a reference for this blog. We’ll create a new folder for our SCSS files so that their separate from the CSS folder when their built. Let’s create a new index.scss file in our new folder with the following : $ mkdir public/scss-stylesheets $ touch public/scss-stylesheets/index.scss After your tree should now look like this : project-dir ├── .git ├── .gitignore ├── node_modules ├── package.json ├── public │ ├── scss-stylesheets │ │ └── index.scss │ ├── stylesheets │ │ └── index.css │ └── index.html └── src ├── components ├── App.js └── index.js</summary></entry><entry><title type="html">Full Stack Guide</title><link href="http://localhost:4000/understanding-everything-to-launching-your-website-from-scratch-to-production/" rel="alternate" type="text/html" title="Full Stack Guide" /><published>2017-04-25T00:00:00-04:00</published><updated>2017-04-25T00:00:00-04:00</updated><id>http://localhost:4000/understanding-everything-to-launching-your-website-from-scratch-to-production</id><content type="html" xml:base="http://localhost:4000/understanding-everything-to-launching-your-website-from-scratch-to-production/">&lt;h1 id=&quot;understanding-everything-to-launching-your-website-from-scratch-to-production---full-stack-guide&quot;&gt;Understanding Everything to Launching Your Website from Scratch to Production - Full Stack Guide&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/stack-of-start-ups.jpg&quot; alt=&quot;Stack of Start Ups&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;When I started my journey on becoming a Full Stack Web Developer, it was very difficult for me to figure out the whole picture of setting up a site from scratch. In my opinion, I believe everyone should understand what the whole picture means. It’ll help us make better decisions about our stack. A backend who’s aware of the frontend will know how to design an API for easier development for the frontend. A mobile developer who’s aware of the backend will know how to make better API calls or even ask for reasonable tweaks to the backend so they have an easier app API response. Because of this I’ve decided to create a graph of everything I’ve learned about Full Stack Development. This isn’t the only way to set up a site, but usually the way it’s set up I’ve seen.&lt;/p&gt;
+
+&lt;h2 id=&quot;understanding-the-graph&quot;&gt;Understanding the Graph&lt;/h2&gt;
+
+&lt;p&gt;I’ll be explaining everything by referring to the graph. This way you understand why something needs to be there, then be able to visually see where it lies in the stack. Blue highlighted boxes represent  the what the user is aware of, white then represents what developers interact with most of their day and the gray represents what developers may interact with but most likely very rarely and should have someone else dedicated to it. Dashed lines represent something that can be there for better performance boost, but not a must if you’re starting out. The highlighted yellow circles is a unique identifier associated with each technology to minimize ambiguity.&lt;/p&gt;
+
+&lt;h2 id=&quot;full-tech-stack&quot;&gt;Full Tech Stack&lt;/h2&gt;
+
+&lt;p&gt;There’s a really awesome video that explains some of this at a more macroscopic scale from Tree House &lt;a href=&quot;https://www.youtube.com/watch?v=i5qpS_D8Law&quot;&gt;here&lt;/a&gt;. I want to dig a little deeper then that, because once we learn some frontend and backend development we’re still kind of left in the dark to figure out on how to get this developed site to actually be hosted and visible to the world to be seen by more then just your friends and families.&lt;/p&gt;
+
+&lt;h3 id=&quot;user-interactions&quot;&gt;User Interactions&lt;/h3&gt;
+
+&lt;p&gt;Lets briefly understand what the user’s interactions are. Anyone who will interact with your app or website won’t really be aware of your stack. In blue you can see that all they really know is that when they go to app they have to download it from the App Store and launch it from their. If they go to your website then they only know that they will have to launch a browser, perhaps Chrome in this case.  Beyond that they don’t know or nor do they care.&lt;/p&gt;
+
+&lt;h3 id=&quot;a---frontend-uiux&quot;&gt;A - Frontend UI/UX&lt;/h3&gt;
+
+&lt;p&gt;This part of the web is what the user usually sees when they go to your site. They see the user interface of your website. This is usually written in HTML/CSS/Javascript or using React + Redux, Angular, etc. When building a site, people usually have two servers. One server holds the frontend that then makes RESTful API calls to another server, which holds the backend API.&lt;/p&gt;
+
+&lt;h3 id=&quot;b---nodejs-or-nginx-webserver&quot;&gt;B - NodeJs or NGINX Webserver&lt;/h3&gt;
+
+&lt;p&gt;For you to be able to host your frontend on a server, you’re going to need to have a webserver, which can be NodeJs or NGINX or something else. There’s more webservers but you’re going to need one to serve your frontend on a server.&lt;/p&gt;
+
+&lt;h3 id=&quot;c---server&quot;&gt;C - Server&lt;/h3&gt;
+
+&lt;p&gt;The frontend and webserver then sits on a server which you usually get, like Digital Ocean or a more beginner friendly Heroku. These servers have some type of OS on it.&lt;/p&gt;
+
+&lt;h3 id=&quot;f---backend-api&quot;&gt;F - Backend API&lt;/h3&gt;
+
+&lt;p&gt;The backend is where your API lies, this is where you develop the brains of your website and make sure the data stored is synced across all developed software. For example if you create an user account on your site, you’d like to handle that information on this side and make sure that if they created that account on your mobile app, they can then use that same log in for the website and then expect the same data to be there. The backend is written by a server side language like Rails or NodeJs + Express or etc. This part can actually by hosted on to the server itself since it already acts as a webserver, but you’d optionally be able to put another webserver in between.&lt;/p&gt;
+
+&lt;h3 id=&quot;g---sql-database&quot;&gt;G - SQL Database&lt;/h3&gt;
+
+&lt;p&gt;Your backend API only handles the flow of information coming and out but it doesn’t persists that data anywhere. For your backend to be able to persists the data of someone who created an account so that they can log in the future, it’s persisted into a SQL database.&lt;/p&gt;
+
+&lt;h3 id=&quot;h---amazon-web-services-aws-load-balancers&quot;&gt;H - Amazon Web Services (AWS) Load Balancers&lt;/h3&gt;
+
+&lt;p&gt;What ends up happening is that people will put a webserver between your backend and your server and the reason behind this is so that it’s a load balancer. Which means if you get a lot of traffic on your site and want to make sure your site doesn’t get slowed down by a lot people going on your site at the same time. Amazon Web Services is a huge software as a service that not only provides load balancing but other services like a back up server if you’d like one.&lt;/p&gt;
+
+&lt;h3 id=&quot;i---redirect-server-nginx&quot;&gt;I - Redirect Server NGINX&lt;/h3&gt;
+
+&lt;p&gt;When you load balance you end up splitting the load up for your server, a redirect server is what will help redistribute workloads across multiple computing resources.&lt;/p&gt;
+
+&lt;h3 id=&quot;j---backend-server&quot;&gt;J - Backend Server&lt;/h3&gt;
+
+&lt;p&gt;The backend, with your webservers are then hosted on a second server, which can again be Digital Ocean, Heroku, Rackspace, CloudatCost, etc.  That pretty much is your entire website from top to bottom.&lt;/p&gt;
+
+&lt;h3 id=&quot;d---mobile-app&quot;&gt;D - Mobile App&lt;/h3&gt;
+
+&lt;p&gt;Your app follows a similar, but much more simple route, since your app doesn’t need to be hosted on a server. It’s just developed by you then published to the Google Play Store if it’s an Android App or App Store if it’s an iOS app. Your mobile app can however also make RESTful API calls to your backend so that it stays in sync with the data of your site or any other developed software. Your app can also store some information locally.&lt;/p&gt;
+
+&lt;h3 id=&quot;e---local-database&quot;&gt;E - Local Database&lt;/h3&gt;
+
+&lt;p&gt;If they want to be able to automatically logged in their mobile phone, but not the site since they share the computer at home, that’s data that they can locally save on their phone.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;That sums up everything there is to know about created your website from scratch. I hope this helps everyone who are trying to figure out how to create their site from scratch and how they will.&lt;/p&gt;</content><author><name></name></author><category term="Mac" /><category term="Web" /><category term="Development" /><category term="Full Stack" /><summary type="html">Understanding Everything to Launching Your Website from Scratch to Production - Full Stack Guide</summary></entry><entry><title type="html">Understanding Database Associations Through a Followings Model</title><link href="http://localhost:4000/understanding-database-associations-through-a-followings-model/" rel="alternate" type="text/html" title="Understanding Database Associations Through a Followings Model" /><published>2017-03-13T00:00:00-04:00</published><updated>2017-03-13T00:00:00-04:00</updated><id>http://localhost:4000/understanding-database-associations-through-a-followings-model</id><content type="html" xml:base="http://localhost:4000/understanding-database-associations-through-a-followings-model/">&lt;h1 id=&quot;still-in-progress&quot;&gt;Still In Progress&lt;/h1&gt;
+&lt;p&gt;This blog isn’t finished and is still in progress.&lt;/p&gt;
+
+&lt;p&gt;SQL databases are extremely important in building software applications. They allow us to persist data in our application. If we can’t persist data, then you’d have to recreate your profile every time you log into Facebook. Using Rails Active Record, I’ll show you how to make a simple table, all the way to an entire &lt;code class=&quot;highlighter-rouge&quot;&gt;Followings&lt;/code&gt; table you would usually see in Instagram. Where you have many followers and you can also follow many people.&lt;/p&gt;
+
+&lt;p&gt;I’m a fan of getting started quickly ( so I’m not bored to death ). Lets create a new Rails project. I like using atom as my editor, you can replace &lt;code class=&quot;highlighter-rouge&quot;&gt;atom&lt;/code&gt; on line 3 with the editor you use.&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;rails new project-name
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;project-name
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;atom .
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;creating-a-table&quot;&gt;Creating a Table&lt;/h2&gt;
+
+&lt;p&gt;Usually you have one application and that application has one database, which then contains multiple tables, where those tables then have columns and rows. If it helps, you can imagine and excel sheet. Columns and rows would be the fields you’d like the table to have. So for example in my database, I might make a &lt;code class=&quot;highlighter-rouge&quot;&gt;users&lt;/code&gt; table  to keep track of all of the users and then create a &lt;code class=&quot;highlighter-rouge&quot;&gt;posts&lt;/code&gt; table to keep track of all posts.  So I have one database with two tables.&lt;/p&gt;
+
+&lt;p&gt;If you wanted to create a table for a user, you’d do the following. Now if I wanted to save a field/column, then you’d simply add &lt;code class=&quot;highlighter-rouge&quot;&gt;t.type :field_name&lt;/code&gt; inside the &lt;code class=&quot;highlighter-rouge&quot;&gt;create_table&lt;/code&gt; block. In this example, I want the user to have an &lt;code class=&quot;highlighter-rouge&quot;&gt;username&lt;/code&gt; field and an &lt;code class=&quot;highlighter-rouge&quot;&gt;age&lt;/code&gt; field.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CreateUsers&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Migration&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;change&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;create_table&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'users'&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:username&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;integer&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:age&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;You can see easily that posts would simply just be replacing the users&lt;/p&gt;
+
+&lt;h2 id=&quot;associations&quot;&gt;Associations&lt;/h2&gt;
+
+&lt;p&gt;Now my &lt;code class=&quot;highlighter-rouge&quot;&gt;users&lt;/code&gt; table probably has an association with my &lt;code class=&quot;highlighter-rouge&quot;&gt;posts&lt;/code&gt; table because an user can have multiple posts and a post can only have one user. If I was a user named John, then John can have a million posts, but these posts can only belong to John since he posts them.&lt;/p&gt;</content><author><name></name></author><category term="Rails" /><category term="SQL" /><summary type="html">Still In Progress This blog isn’t finished and is still in progress.</summary></entry><entry><title type="html">Setting Aliases In Windows Git Bash Profile</title><link href="http://localhost:4000/setting-aliases-in-windows-git-bash/" rel="alternate" type="text/html" title="Setting Aliases In Windows Git Bash Profile" /><published>2017-03-10T00:00:00-05:00</published><updated>2017-03-10T00:00:00-05:00</updated><id>http://localhost:4000/setting-aliases-in-windows-git-bash</id><content type="html" xml:base="http://localhost:4000/setting-aliases-in-windows-git-bash/">&lt;p&gt;If you have a Windows computer and use a Git Bash to company you while you code,
+there are some shortcuts you need to know about.&lt;/p&gt;
+
+&lt;p&gt;To set up your profile, you have to first go to your home directory with &lt;code class=&quot;highlighter-rouge&quot;&gt;cd&lt;/code&gt;
+then creating a file in that directory called &lt;code class=&quot;highlighter-rouge&quot;&gt;.bashrc&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; $ cd
  $ touch .bashrc
-```
-You can now edit it using vim
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;You can now edit it using vim&lt;/p&gt;
 
-```
-$ vim .bashrc
-```
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ vim .bashrc
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-or just open it in your folder and then open it in your favorite editor if you
-don&#39;t have a editor shortcut set up with your git bash.
+&lt;p&gt;or just open it in your folder and then open it in your favorite editor if you
+don’t have a editor shortcut set up with your git bash.&lt;/p&gt;
 
-```
-$ start .bashrc
-```
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ start .bashrc
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-Now once it&#39;s open on your favorite editor, you can set aliases
+&lt;p&gt;Now once it’s open on your favorite editor, you can set aliases&lt;/p&gt;
 
-```
-alias workspace=&quot;cd ~/your-directory-path&quot;
-```
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;alias workspace=&quot;cd ~/your-directory-path&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-Now save this by typing
+&lt;p&gt;Now save this by typing&lt;/p&gt;
 
-```
-$ source .bashrc
-```
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ source .bashrc
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-for example I have a `Workspace` for where I write all my code and I have an alias
-`$ workspace` which will immediately cd me into that directory.
+&lt;p&gt;for example I have a &lt;code class=&quot;highlighter-rouge&quot;&gt;Workspace&lt;/code&gt; for where I write all my code and I have an alias
+&lt;code class=&quot;highlighter-rouge&quot;&gt;$ workspace&lt;/code&gt; which will immediately cd me into that directory.&lt;/p&gt;
 
-```
-alias workspace=&quot;cd ~/Documents/Workspace/&quot;
-```
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;alias workspace=&quot;cd ~/Documents/Workspace/&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-And there you go. Hope you now have alias in your Windows Git Bash profile.</content><category term="Windows" /><category term="Git Bash" /><summary>If you have a Windows computer and use a Git Bash to company you while you code,
-there are some shortcuts you need to know about.</summary></entry><entry><title>Clean Code — My Methods and Reasons on Writing Clear and Concise Code</title><link href="https://seeyouspacecowboy.github.io/halve/clean-code-my-methods-and-reasons-on-writing-clear-and-concise-code/" rel="alternate" type="text/html" title="Clean Code — My Methods and Reasons on Writing Clear and Concise Code" /><published>2017-02-01T00:00:00-05:00</published><updated>2017-02-01T00:00:00-05:00</updated><id>https://seeyouspacecowboy.github.io/halve/clean-code-my methods-and-reasons-on-writing-clear-and-concise-code</id><content type="html" xml:base="https://seeyouspacecowboy.github.io/halve/clean-code-my-methods-and-reasons-on-writing-clear-and-concise-code/">Writing clean, concise and maintainable code can be a tricky matter if it’s your first time thinking about it. Because if it’s your first time, this can mean many things to you, but that thought it’s self is a good first step. Clean code, is to understand that the code you are writing is no longer for yourself. The code you now write, is for someone else to read. That someone else can even mean your future self two days from today.
+&lt;p&gt;And there you go. Hope you now have alias in your Windows Git Bash profile.&lt;/p&gt;</content><author><name></name></author><category term="Windows" /><category term="Git Bash" /><summary type="html">If you have a Windows computer and use a Git Bash to company you while you code, there are some shortcuts you need to know about.</summary></entry><entry><title type="html">Clean Code — My Methods and Reasons on Writing Clear and Concise Code</title><link href="http://localhost:4000/clean-code-my-methods-and-reasons-on-writing-clear-and-concise-code/" rel="alternate" type="text/html" title="Clean Code — My Methods and Reasons on Writing Clear and Concise Code" /><published>2017-02-01T00:00:00-05:00</published><updated>2017-02-01T00:00:00-05:00</updated><id>http://localhost:4000/clean-code-my%20methods-and-reasons-on-writing-clear-and-concise-code</id><content type="html" xml:base="http://localhost:4000/clean-code-my-methods-and-reasons-on-writing-clear-and-concise-code/">&lt;p&gt;Writing clean, concise and maintainable code can be a tricky matter if it’s your first time thinking about it. Because if it’s your first time, this can mean many things to you, but that thought it’s self is a good first step. Clean code, is to understand that the code you are writing is no longer for yourself. The code you now write, is for someone else to read. That someone else can even mean your future self two days from today.&lt;/p&gt;
 
-Writing code for others, means you can’t have a coding style simply because you like writing code that way. You have to find out what the convention for that language is and start writing along those conventions. If Ruby’s variable naming convention is underscore instead of camel case like JavaScript. Then you write underscores instead of camel case for other Ruby developers to be able to read. Still before we get to unique conventions there are still very universal conventions.
+&lt;p&gt;Writing code for others, means you can’t have a coding style simply because you like writing code that way. You have to find out what the convention for that language is and start writing along those conventions. If Ruby’s variable naming convention is underscore instead of camel case like JavaScript. Then you write underscores instead of camel case for other Ruby developers to be able to read. Still before we get to unique conventions there are still very universal conventions.&lt;/p&gt;
 
-## The Weight of Bad Code
+&lt;h2 id=&quot;the-weight-of-bad-code&quot;&gt;The Weight of Bad Code&lt;/h2&gt;
 
-Writing bad code can be a big weight on your project. Imagine writing bad code where you can still understand it. Then you start to add more code onto it and it becomes increasingly complex. Then you don’t touch the code for a couple of days until one day you decide that you’d love to add a feature onto it. Until you realize you’re now stuck with the gruesome task of trying to re-understand everything that’s going on with it. Now imagine once you figure it all out, you tweak a piece of the code and it breaks in three different places and you don’t understand the path the code is taking to tackle the bug. Your productivity is basically non-existent. This makes code
+&lt;p&gt;Writing bad code can be a big weight on your project. Imagine writing bad code where you can still understand it. Then you start to add more code onto it and it becomes increasingly complex. Then you don’t touch the code for a couple of days until one day you decide that you’d love to add a feature onto it. Until you realize you’re now stuck with the gruesome task of trying to re-understand everything that’s going on with it. Now imagine once you figure it all out, you tweak a piece of the code and it breaks in three different places and you don’t understand the path the code is taking to tackle the bug. Your productivity is basically non-existent. This makes code&lt;/p&gt;
 
-## Naming Variables
+&lt;h2 id=&quot;naming-variables&quot;&gt;Naming Variables&lt;/h2&gt;
 
-So lets start with some basic, mostly universal clean code which I’ve written in Ruby, but they can be used for any language in general.
-Lets start with name variables, if you’re naming variables, then name them exactly what they are. If you’re talking about a car, name your variable car. Don’t take shortcuts, because a shortcut ‘c’ now means car, but a shortcut ‘c’ might mean cat in the future.
+&lt;p&gt;So lets start with some basic, mostly universal clean code which I’ve written in Ruby, but they can be used for any language in general.
+Lets start with name variables, if you’re naming variables, then name them exactly what they are. If you’re talking about a car, name your variable car. Don’t take shortcuts, because a shortcut ‘c’ now means car, but a shortcut ‘c’ might mean cat in the future.&lt;/p&gt;
 
-Bad :
-```ruby
-n = &quot;Bob&quot;
-c = &quot;Mustang&quot;
-```
+&lt;p&gt;Bad :&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Bob&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Mustang&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-Good :
-```ruby
-name = &quot;Bob&quot;
-car = &quot;Mustang&quot;
-```
+&lt;p&gt;Good :&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Bob&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;car&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Mustang&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-## A Set Should Become A Classes
+&lt;h2 id=&quot;a-set-should-become-a-classes&quot;&gt;A Set Should Become A Classes&lt;/h2&gt;
 
-Clean code on classes can be an entire blog on its own, but to begin with you must know when to use a class instead of variables. This happens whenever you notice a pattern or repeated keyword for a set of variables.
+&lt;p&gt;Clean code on classes can be an entire blog on its own, but to begin with you must know when to use a class instead of variables. This happens whenever you notice a pattern or repeated keyword for a set of variables.&lt;/p&gt;
 
-Bad :
-```ruby
-personName = &quot;Steve&quot;
-personAddress = &quot;456 street state 98456&quot;
-personEmail = &quot;email@mail.com&quot;
-```
+&lt;p&gt;Bad :&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;personName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Steve&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;personAddress&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;456 street state 98456&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;personEmail&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;email@mail.com&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-Good :
+&lt;p&gt;Good :&lt;/p&gt;
 
-```ruby
-class Person
-    def initialize(name, address, email)
-        @name = name
-        @address = address
-        @email = email
-    end
-end
-```
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Person&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;initialize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;vi&quot;&gt;@name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;
+        &lt;span class=&quot;vi&quot;&gt;@address&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;
+        &lt;span class=&quot;vi&quot;&gt;@email&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;email&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-## How To Name Methods
+&lt;h2 id=&quot;how-to-name-methods&quot;&gt;How To Name Methods&lt;/h2&gt;
 
-Methods take an action and should name it the action it’s taking. This way if you have a method that’s counting the number of people on a line, it reads “Count line” like a human sentence.
+&lt;p&gt;Methods take an action and should name it the action it’s taking. This way if you have a method that’s counting the number of people on a line, it reads “Count line” like a human sentence.&lt;/p&gt;
 
-```ruby
-line = [&quot;Steve&quot;, &quot;John&quot;, &quot;Rob&quot;]
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Steve&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;John&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Rob&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
 
-# method call
-def count(line)
-```
+&lt;span class=&quot;c1&quot;&gt;# method call&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-Your methods also have to be predictable. As programmers you’re use to methods having a way of being predictable the same way you expect a game controller to have somewhat of a very similar layout regardless of console. Methods have to be the same way .
+&lt;p&gt;Your methods also have to be predictable. As programmers you’re use to methods having a way of being predictable the same way you expect a game controller to have somewhat of a very similar layout regardless of console. Methods have to be the same way .&lt;/p&gt;
 
-## Pure Methods
+&lt;h2 id=&quot;pure-methods&quot;&gt;Pure Methods&lt;/h2&gt;
 
-Methods should almost always have a non-destructive method before a destructive version of that same method. What I mean is that if you have an array that concatenates the word ‘meow’ to the passed string argument, it should not alter the passed variable. Pay attention to the difference in console outputs.
+&lt;p&gt;Methods should almost always have a non-destructive method before a destructive version of that same method. What I mean is that if you have an array that concatenates the word ‘meow’ to the passed string argument, it should not alter the passed variable. Pay attention to the difference in console outputs.&lt;/p&gt;
 
-Bad :
-```ruby
-sentence = &quot;The cat goes&quot;
-meow_sentence = concatMeow(sentence)
+&lt;p&gt;Bad :&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;sentence&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;The cat goes&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;meow_sentence&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;concatMeow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sentence&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-puts(sentence)       # &quot;The cat goes meow&quot;
-puts(meow_sentence)  # &quot;The cat goes meow&quot;
-```
+&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sentence&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;       &lt;span class=&quot;c1&quot;&gt;# &quot;The cat goes meow&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;meow_sentence&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# &quot;The cat goes meow&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-Good :
-```ruby
-sentence = &quot;The cat goes&quot;
-meow_sentence = concatMeow(sentence)
+&lt;p&gt;Good :&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;sentence&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;The cat goes&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;meow_sentence&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;concatMeow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sentence&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-puts(sentence)      # &quot;The cat goes&quot;
-puts(meow_sentence) # &quot;The cat goes meow&quot;
-```
+&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sentence&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;      &lt;span class=&quot;c1&quot;&gt;# &quot;The cat goes&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;meow_sentence&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# &quot;The cat goes meow&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-## Single Responsibility Rule
+&lt;h2 id=&quot;single-responsibility-rule&quot;&gt;Single Responsibility Rule&lt;/h2&gt;
 
-The single responsibility rule is to make sure a method does one job and only one job. The reason because you may want one functionality and not the other. For example lets say you had a function that takes a name, then later you want to just display the first name on their profile page instead of the full name.
+&lt;p&gt;The single responsibility rule is to make sure a method does one job and only one job. The reason because you may want one functionality and not the other. For example lets say you had a function that takes a name, then later you want to just display the first name on their profile page instead of the full name.&lt;/p&gt;
 
-```ruby
-def main()
-    name = get_full_name()
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get_full_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 
-    puts(name)
-end
-```
+    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-Single
-```ruby
-def main()
-    first_name = get_first_name()
-    last_name = get_last_name()
+&lt;p&gt;Single&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;first_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get_first_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;last_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get_last_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 
-    puts(&quot;#{first_name} #{last_name}&quot;)
-end
-```
+    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first_name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;last_name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-## Should I Comment my Code?
+&lt;h2 id=&quot;should-i-comment-my-code&quot;&gt;Should I Comment my Code?&lt;/h2&gt;
 
-This is a big debate amongst programmers, I’m sure it’ll even cause some to say my entire blog is invalid because of this, but to be straight to the point, people should be able to read your code without comments. Because comments arise another problem along with maintaining your code. Maintaining your comments.
+&lt;p&gt;This is a big debate amongst programmers, I’m sure it’ll even cause some to say my entire blog is invalid because of this, but to be straight to the point, people should be able to read your code without comments. Because comments arise another problem along with maintaining your code. Maintaining your comments.&lt;/p&gt;
 
-The problem with comments, is that comments don’t have errors thrown if they’re the wrong comment for the wrong piece of code. If my function counts the number of items in an array and I comment saying that my function displays the thriller video, then on runtime it will not throw an error. You can now imagine if you comment your code well, but someone else decides to rearrange the code without any regards to the comments.
+&lt;p&gt;The problem with comments, is that comments don’t have errors thrown if they’re the wrong comment for the wrong piece of code. If my function counts the number of items in an array and I comment saying that my function displays the thriller video, then on runtime it will not throw an error. You can now imagine if you comment your code well, but someone else decides to rearrange the code without any regards to the comments.&lt;/p&gt;
 
-What you write :
-```ruby
-# Name of Person
-n = &quot;Steve&quot;
+&lt;p&gt;What you write :&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Name of Person&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Steve&quot;&lt;/span&gt;
 
-# Prints someone&#39;s name
-def display(n)
-    puts(n)
-end
-```
+&lt;span class=&quot;c1&quot;&gt;# Prints someone's name&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-Someone else who doesn’t care about your comments, makes some edits. Changes your variable into a list of names and changes your function to returning the count of names:
+&lt;p&gt;Someone else who doesn’t care about your comments, makes some edits. Changes your variable into a list of names and changes your function to returning the count of names:&lt;/p&gt;
 
-```ruby
-# Name of Person
-n = [&quot;Steve&quot;, &quot;Fido&quot;, &quot;Roman&quot;]
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Name of Person&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Steve&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Fido&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Roman&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
 
-# Prints someone&#39;s name
-def count(n)
-    return n.length
-end
-```
+&lt;span class=&quot;c1&quot;&gt;# Prints someone's name&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;length&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-What you should practice :
-```ruby
-name = &quot;Steve&quot;
+&lt;p&gt;What you should practice :&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Steve&quot;&lt;/span&gt;
 
-def display(name)
-    puts(name)
-end
-```</content><category term="Code" /><summary>Writing clean, concise and maintainable code can be a tricky matter if it’s your first time thinking about it. Because if it’s your first time, this can mean many things to you, but that thought it’s self is a good first step. Clean code, is to understand that the code you are writing is no longer for yourself. The code you now write, is for someone else to read. That someone else can even mean your future self two days from today.</summary></entry></feed>
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</content><author><name></name></author><category term="Code" /><summary type="html">Writing clean, concise and maintainable code can be a tricky matter if it’s your first time thinking about it. Because if it’s your first time, this can mean many things to you, but that thought it’s self is a good first step. Clean code, is to understand that the code you are writing is no longer for yourself. The code you now write, is for someone else to read. That someone else can even mean your future self two days from today.</summary></entry><entry><title type="html">Creating Simple Users in Rails with Devise Gem Tutorial</title><link href="http://localhost:4000/creating-simple-users-in-rails-with-devise-gem-tutorial/" rel="alternate" type="text/html" title="Creating Simple Users in Rails with Devise Gem Tutorial" /><published>2017-01-02T00:00:00-05:00</published><updated>2017-01-02T00:00:00-05:00</updated><id>http://localhost:4000/creating-simple-users-in-rails-with-devise-gem-tutorial</id><content type="html" xml:base="http://localhost:4000/creating-simple-users-in-rails-with-devise-gem-tutorial/">&lt;p&gt;Prerequisite: Ruby, Rails, Active Record CRUD&lt;/p&gt;
+
+&lt;p&gt;When you finally get Ruby, understand a bit of Rails and start writing small websites with RESTful &amp;amp; CRUD conventions, you start to feel pretty good that you can show something off. Though that showcase still doesn’t feel very personal to someone just yet, until they start to make their own profile.&lt;/p&gt;
+
+&lt;p&gt;Here’s a tutorial using the Devise gem doing just that. We’ll make a simple blog app. We won’t be making the entire blog app in part I but will complete it in Part II. I would like us to focus just on how to create the profile, not the blog for this part. So instead we’ll kind of cut the blog short so that when someone logs in, it just displays a welcome index page with their e-mail they signed up with displayed. This way you can have a full user profile and have a platform for a full website if you’d like. In part II we’ll complete the blog and focus on how to make our blog unique to our individual user. Lets get started.&lt;/p&gt;
+
+&lt;h2 id=&quot;setting-up-devise-gem-and-creating-a-user&quot;&gt;Setting Up Devise Gem and Creating a User&lt;/h2&gt;
+
+&lt;p&gt;Go to the directory where you want to have this project created and open terminal, then type :&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;rails new simple-user-profile
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now add the Devise gem to the Gemfile :&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'devise'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Then the following in our terminal :&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# -- Install devise gem&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bundle&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rails&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;devise&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:install&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# -- creates devise User model&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rails&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;devise&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;User&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;In terminal you’ll see a set of instructions from the devise gem. We only have to add the following line of code to the &lt;code class=&quot;highlighter-rouge&quot;&gt;config/environments/development.rb&lt;/code&gt; path :&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;action_mailer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;default_url_options&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;host: &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'localhost'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;port: &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3000&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Migrate the database :&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;rake db:migrate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;At this point you actually have a devise user profile and log in. If you’d like to try it out, start the rails server with :&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;rails s
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Then go to &lt;code class=&quot;highlighter-rouge&quot;&gt;localhost:3000/users/sign_up&lt;/code&gt; in your browser to see the sign in. It should automatically display the Ruby on Rails page. Lets change that into our index page next.&lt;/p&gt;
+
+&lt;h2 id=&quot;displaying-a-welcome-index-page&quot;&gt;Displaying a Welcome Index Page&lt;/h2&gt;
+
+&lt;p&gt;Now that we have our Devise gem working properly, lets set up a welcome index page for our user in their blog (this could be anything, recipes, journal, etc. not just blog)&lt;/p&gt;
+
+&lt;p&gt;Lets create a Blog model and controller:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;rails g model Blog
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;rails g controller blogs
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Lets go into our User model created by our devise gem and our Blog model then set our associations.
+Our User model has many blogs and our blog model belongs to a user.&lt;/p&gt;
+
+&lt;p&gt;Here is our User in &lt;code class=&quot;highlighter-rouge&quot;&gt;app/models/user.rb&lt;/code&gt; :&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;User&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;has_many&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:blogs&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;# Include default devise modules. Others available are:&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# :confirmable, :lockable, :timeoutable and :omniauthable&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;devise&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:database_authenticatable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:registerable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+       &lt;span class=&quot;ss&quot;&gt;:recoverable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:rememberable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:trackable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:validatable&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Here is our Blog in &lt;code class=&quot;highlighter-rouge&quot;&gt;app/models/blog.rb&lt;/code&gt; :&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Blog&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;belongs_to&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:user&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Our blog will have a title and a body. Lets set those in our migration &lt;code class=&quot;highlighter-rouge&quot;&gt;db/migrate/(date)_create_posts.rb&lt;/code&gt; :&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CreateBlogs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Migration&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;change&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;create_table&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:blogs&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;belongs_to&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:user&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:title&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:body&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;timestamps&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Lets migrate :&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;rake db:migrate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;This is where if we were to create a full blog, we would have all our RESTful methods here, but since that’s not our focus for this part, we’ll simply create a welcome index page with the user email displayed :&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BlogsController&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ApplicationController&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# before any blog action happens, it will authenticate the user&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;before_action&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:authenticate_user!&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;index&lt;/span&gt;
+    &lt;span class=&quot;vi&quot;&gt;@user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;current_user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;email&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;#Other Restful methods show, new, edit, create, update, destroy&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;We have to set routes in our configs folder :&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;Rails&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;application&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;routes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;draw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;root&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'blogs#index'&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;devise_for&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:users&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;resources&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:users&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;resources&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:blogs&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;All we need is for our user to be able to see a page after they log in, since we have our index method in our controller, we need to edit our index blogs view :&lt;/p&gt;
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;Welcome !&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;p&amp;gt;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;lt;&lt;/span&gt;%= @user %&amp;gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Now when you log in, you should see your e-mail. Hopefully, you now know how to make a user and are able incorporate users in other works. Take this project and make this into anything you like. If you liked this tutorial, follow me for when I finish and publish Part II or bookmark this page and I’ll link it here. Thanks for reading!&lt;/p&gt;</content><author><name></name></author><category term="Rails" /><category term="Gems" /><category term="Mac" /><summary type="html">Prerequisite: Ruby, Rails, Active Record CRUD</summary></entry><entry><title type="html">Anyone Who Uses Terminal on MacOS, Should Edit Their .bash_profile</title><link href="http://localhost:4000/anyone-who-uses-terminal-on-macos-should-edit-their-bash_profile/" rel="alternate" type="text/html" title="Anyone Who Uses Terminal on MacOS, Should Edit Their .bash_profile" /><published>2016-12-19T00:00:00-05:00</published><updated>2016-12-19T00:00:00-05:00</updated><id>http://localhost:4000/anyone-who-uses-terminal-on-macos-should-edit-their-bash_profile</id><content type="html" xml:base="http://localhost:4000/anyone-who-uses-terminal-on-macos-should-edit-their-bash_profile/">&lt;p&gt;Everyone who uses terminal for anything, should know about &lt;code class=&quot;highlighter-rouge&quot;&gt;.bash_profile&lt;/code&gt;. If you happen to be someone who didn’t even know a &lt;code class=&quot;highlighter-rouge&quot;&gt;.bash_profile&lt;/code&gt; existed, you’ve come to the right place. Your &lt;code class=&quot;highlighter-rouge&quot;&gt;.bash_profile&lt;/code&gt; is a file that basically allows you to customize your terminal.&lt;/p&gt;
+
+&lt;p&gt;Your hidden &lt;code class=&quot;highlighter-rouge&quot;&gt;.bash_profile&lt;/code&gt; is usually found in the default home directory:&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/.bash_profile
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;I have atom text editor installed, so I can open .bash_profile with:&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;atom ~/.bash_profile
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Although I’m not a huge fan, you can edit directly from terminal instead of installing atom with:&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;nano ~/.bash_profile
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h2 id=&quot;change-terminal-prompt-display&quot;&gt;Change Terminal Prompt Display&lt;/h2&gt;
+
+&lt;p&gt;If you’d no longer want to display you username as your terminal prompt and want it to now say “Hacker” instead, add this to your &lt;code class=&quot;highlighter-rouge&quot;&gt;.bash_profile&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PS1 = &quot;Hacker &quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Similarly you can even drag and drop an emoji in-between the quotation and your terminal prompt will display it:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PS1 = &quot;Hacker 💀 &quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;You can add “\W” or “\w” to your PS1. Where typing uppercase “\w” shows the whole working directory and lowercase “\W” adds only the current working directory to your terminal prompt, if you’d still like those displayed:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PS1 = &quot;Hacker 💀 \w&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;You can save and refresh these changes from terminal with following command:&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; ~/.bash_profile
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h2 id=&quot;adding-an-alias-shortcut&quot;&gt;Adding an Alias Shortcut&lt;/h2&gt;
+
+&lt;p&gt;Adding an alias is awesome. You can use an alias from any place by simply typing the alias and it’ll do the requested command. For example if you had a directory that you use often:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~/some_path/folder
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;You can then just add the following to the &lt;code class=&quot;highlighter-rouge&quot;&gt;.bash_profile&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;alias hack=&quot;cd ~/some_path/folder&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Save and refresh:&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; ~/.bash_profile
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;And now every time you type the alias in terminal, you’ll cd into that directory:&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;hack
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</content><author><name></name></author><category term="Shell" /><category term="Terminal" /><summary type="html">Everyone who uses terminal for anything, should know about .bash_profile. If you happen to be someone who didn’t even know a .bash_profile existed, you’ve come to the right place. Your .bash_profile is a file that basically allows you to customize your terminal.</summary></entry><entry><title type="html">Full Stack Guide</title><link href="http://localhost:4000/understanding-everything-to-launching-your-website-from-scratch-to-production/" rel="alternate" type="text/html" title="Full Stack Guide" /><published>2016-04-25T00:00:00-04:00</published><updated>2016-04-25T00:00:00-04:00</updated><id>http://localhost:4000/understanding-everything-to-launching-your-website-from-scratch-to-production</id><content type="html" xml:base="http://localhost:4000/understanding-everything-to-launching-your-website-from-scratch-to-production/">&lt;h1 id=&quot;understanding-everything-to-launching-your-website-from-scratch-to-production---full-stack-guide&quot;&gt;Understanding Everything to Launching Your Website from Scratch to Production - Full Stack Guide&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/stack-of-start-ups.jpg&quot; alt=&quot;Stack of Start Ups&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;When I started my journey on becoming a Full Stack Web Developer, it was very difficult for me to figure out the whole picture of setting up a site from scratch. In my opinion, I believe everyone should understand what the whole picture means. It’ll help us make better decisions about our stack. A backend who’s aware of the frontend will know how to design an API for easier development for the frontend. A mobile developer who’s aware of the backend will know how to make better API calls or even ask for reasonable tweaks to the backend so they have an easier app API response. Because of this I’ve decided to create a graph of everything I’ve learned about Full Stack Development. This isn’t the only way to set up a site, but usually the way it’s set up I’ve seen.&lt;/p&gt;
+
+&lt;h2 id=&quot;understanding-the-graph&quot;&gt;Understanding the Graph&lt;/h2&gt;
+
+&lt;p&gt;I’ll be explaining everything by referring to the graph. This way you understand why something needs to be there, then be able to visually see where it lies in the stack. Blue highlighted boxes represent  the what the user is aware of, white then represents what developers interact with most of their day and the gray represents what developers may interact with but most likely very rarely and should have someone else dedicated to it. Dashed lines represent something that can be there for better performance boost, but not a must if you’re starting out. The highlighted yellow circles is a unique identifier associated with each technology to minimize ambiguity.&lt;/p&gt;
+
+&lt;h2 id=&quot;full-tech-stack&quot;&gt;Full Tech Stack&lt;/h2&gt;
+
+&lt;p&gt;There’s a really awesome video that explains some of this at a more macroscopic scale from Tree House &lt;a href=&quot;https://www.youtube.com/watch?v=i5qpS_D8Law&quot;&gt;here&lt;/a&gt;. I want to dig a little deeper then that, because once we learn some frontend and backend development we’re still kind of left in the dark to figure out on how to get this developed site to actually be hosted and visible to the world to be seen by more then just your friends and families.&lt;/p&gt;
+
+&lt;h3 id=&quot;user-interactions&quot;&gt;User Interactions&lt;/h3&gt;
+
+&lt;p&gt;Lets briefly understand what the user’s interactions are. Anyone who will interact with your app or website won’t really be aware of your stack. In blue you can see that all they really know is that when they go to app they have to download it from the App Store and launch it from their. If they go to your website then they only know that they will have to launch a browser, perhaps Chrome in this case.  Beyond that they don’t know or nor do they care.&lt;/p&gt;
+
+&lt;h3 id=&quot;a---frontend-uiux&quot;&gt;A - Frontend UI/UX&lt;/h3&gt;
+
+&lt;p&gt;This part of the web is what the user usually sees when they go to your site. They see the user interface of your website. This is usually written in HTML/CSS/Javascript or using React + Redux, Angular, etc. When building a site, people usually have two servers. One server holds the frontend that then makes RESTful API calls to another server, which holds the backend API.&lt;/p&gt;
+
+&lt;h3 id=&quot;b---nodejs-or-nginx-webserver&quot;&gt;B - NodeJs or NGINX Webserver&lt;/h3&gt;
+
+&lt;p&gt;For you to be able to host your frontend on a server, you’re going to need to have a webserver, which can be NodeJs or NGINX or something else. There’s more webservers but you’re going to need one to serve your frontend on a server.&lt;/p&gt;
+
+&lt;h3 id=&quot;c---server&quot;&gt;C - Server&lt;/h3&gt;
+
+&lt;p&gt;The frontend and webserver then sits on a server which you usually get, like Digital Ocean or a more beginner friendly Heroku. These servers have some type of OS on it.&lt;/p&gt;
+
+&lt;h3 id=&quot;f---backend-api&quot;&gt;F - Backend API&lt;/h3&gt;
+
+&lt;p&gt;The backend is where your API lies, this is where you develop the brains of your website and make sure the data stored is synced across all developed software. For example if you create an user account on your site, you’d like to handle that information on this side and make sure that if they created that account on your mobile app, they can then use that same log in for the website and then expect the same data to be there. The backend is written by a server side language like Rails or NodeJs + Express or etc. This part can actually by hosted on to the server itself since it already acts as a webserver, but you’d optionally be able to put another webserver in between.&lt;/p&gt;
+
+&lt;h3 id=&quot;g---sql-database&quot;&gt;G - SQL Database&lt;/h3&gt;
+
+&lt;p&gt;Your backend API only handles the flow of information coming and out but it doesn’t persists that data anywhere. For your backend to be able to persists the data of someone who created an account so that they can log in the future, it’s persisted into a SQL database.&lt;/p&gt;
+
+&lt;h3 id=&quot;h---amazon-web-services-aws-load-balancers&quot;&gt;H - Amazon Web Services (AWS) Load Balancers&lt;/h3&gt;
+
+&lt;p&gt;What ends up happening is that people will put a webserver between your backend and your server and the reason behind this is so that it’s a load balancer. Which means if you get a lot of traffic on your site and want to make sure your site doesn’t get slowed down by a lot people going on your site at the same time. Amazon Web Services is a huge software as a service that not only provides load balancing but other services like a back up server if you’d like one.&lt;/p&gt;
+
+&lt;h3 id=&quot;i---redirect-server-nginx&quot;&gt;I - Redirect Server NGINX&lt;/h3&gt;
+
+&lt;p&gt;When you load balance you end up splitting the load up for your server, a redirect server is what will help redistribute workloads across multiple computing resources.&lt;/p&gt;
+
+&lt;h3 id=&quot;j---backend-server&quot;&gt;J - Backend Server&lt;/h3&gt;
+
+&lt;p&gt;The backend, with your webservers are then hosted on a second server, which can again be Digital Ocean, Heroku, Rackspace, CloudatCost, etc.  That pretty much is your entire website from top to bottom.&lt;/p&gt;
+
+&lt;h3 id=&quot;d---mobile-app&quot;&gt;D - Mobile App&lt;/h3&gt;
+
+&lt;p&gt;Your app follows a similar, but much more simple route, since your app doesn’t need to be hosted on a server. It’s just developed by you then published to the Google Play Store if it’s an Android App or App Store if it’s an iOS app. Your mobile app can however also make RESTful API calls to your backend so that it stays in sync with the data of your site or any other developed software. Your app can also store some information locally.&lt;/p&gt;
+
+&lt;h3 id=&quot;e---local-database&quot;&gt;E - Local Database&lt;/h3&gt;
+
+&lt;p&gt;If they want to be able to automatically logged in their mobile phone, but not the site since they share the computer at home, that’s data that they can locally save on their phone.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;That sums up everything there is to know about created your website from scratch. I hope this helps everyone who are trying to figure out how to create their site from scratch and how they will.&lt;/p&gt;</content><author><name></name></author><category term="Mac" /><category term="Web" /><category term="Development" /><category term="Full Stack" /><summary type="html">Understanding Everything to Launching Your Website from Scratch to Production - Full Stack Guide</summary></entry></feed>

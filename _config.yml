@@ -53,7 +53,6 @@ linkedin:          mohammedchisti
 #xmpp:              username@server.com
 #hackernews:        username
 #behance:           username
-resume: assests/other/resume-mohammed-chisti.pdf
 
 # Gems
 gems:
@@ -64,5 +63,3 @@ gems:
 # Exclude list
 include: [_pages]
 exclude: [README.md, Gemfile, Gemfile.lock, _site, src, vendor, CNAME, LICENSE, Rakefile, .sass-cache, .DS_Store]
-
-theme: jekyll-theme-cayman
