@@ -1,15 +1,15 @@
 ---
-layout: post
-title:  "Halve Jekyll Theme"
-date:   2016-05-29
-excerpt: "Stylish, two-column Jekyll theme for your blog."
-tag:
-- jekyll 
+title: Halve Jekyll Theme
+date: 2016-05-29 00:00:00 Z
+tags:
+- jekyll
 - halve
 - blog
 - vangeltzo
 - theme
 - vangelis
+layout: post
+excerpt: Stylish, two-column Jekyll theme for your blog.
 ---
 
 <a href="{{ site.url }}/images/halve-home-image.png"><img src="{{ site.url }}/images/halve-home-image.png" alt="Home Page of Halve"></a>  

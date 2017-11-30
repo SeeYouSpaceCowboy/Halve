@@ -1,14 +1,15 @@
 ---
-layout: post
-title: "Edge Case: Nested and Mixed Lists"
+title: 'Edge Case: Nested and Mixed Lists'
+date: 2009-05-15 00:00:00 Z
 categories:
-  - Edge Case
+- Edge Case
 tags:
-  - content
-  - css
-  - edge case
-  - lists
-  - markup
+- content
+- css
+- edge case
+- lists
+- markup
+layout: post
 ---
 
 Nested and mixed lists are an interesting beast. It's a corner case to make sure that

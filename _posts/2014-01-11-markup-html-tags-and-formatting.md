@@ -1,14 +1,15 @@
 ---
-layout: post
-title: "Markup: HTML Tags and Formatting"
+title: 'Markup: HTML Tags and Formatting'
+date: 2014-01-11 00:00:00 Z
 categories:
-  - Markup
+- Markup
 tags:
-  - content
-  - css
-  - formatting
-  - html
-  - markup
+- content
+- css
+- formatting
+- html
+- markup
+layout: post
 ---
 
 A variety of common markup showing how the theme styles them.

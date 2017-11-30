@@ -1,11 +1,12 @@
 ---
-layout: post
-title: "Post: Image (Caption)"
+title: 'Post: Image (Caption)'
+date: 2010-08-07 00:00:00 Z
 categories:
-  - Post Formats
+- Post Formats
 tags:
-  - image
-  - Post Formats
+- image
+- Post Formats
+layout: post
 ---
 
 {% capture fig_img %}

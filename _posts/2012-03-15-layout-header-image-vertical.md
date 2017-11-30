@@ -1,15 +1,16 @@
 ---
-layout: post
-title: "Layout: Header Image (Vertical)"
-image: images/unsplash-image-6.jpg
+title: 'Layout: Header Image (Vertical)'
+date: 2012-03-15 00:00:00 Z
 categories:
-  - Layout
-  - Uncategorized
+- Layout
+- Uncategorized
 tags:
-  - edge case
-  - featured image
-  - image
-  - layout
+- edge case
+- featured image
+- image
+- layout
+layout: post
+image: images/unsplash-image-6.jpg
 ---
 
 This post should display a **header image**, if the theme supports it.

@@ -1,10 +1,11 @@
 ---
+title: 'Markup: Syntax Highlighting'
+date: 2015-08-16 00:00:00 Z
+tags:
+- code
+- syntax highlighting
 layout: post
-title: "Markup: Syntax Highlighting"
-excerpt: "Post displaying the various ways of highlighting code in Markdown."
-tags: 
-  - code
-  - syntax highlighting
+excerpt: Post displaying the various ways of highlighting code in Markdown.
 ---
 
 Syntax highlighting is a feature that displays source code, in different colors and fonts according to the category of terms. This feature facilitates writing in a structured language such as a programming language or a markup language as both structures and syntax errors are visually distinct. Highlighting does not affect the meaning of the text itself; it is intended only for human readers.[^1]

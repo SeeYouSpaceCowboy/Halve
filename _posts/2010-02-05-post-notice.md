@@ -1,11 +1,12 @@
 ---
-layout: post
-title: "Post: Notice"
+title: 'Post: Notice'
+date: 2010-02-05 00:00:00 Z
 categories:
-  - Post Formats
+- Post Formats
 tags:
-  - Post Formats
-  - notice
+- Post Formats
+- notice
+layout: post
 ---
 
 A notice displays information that explains nearby content. Often used to call attention to a particular detail.

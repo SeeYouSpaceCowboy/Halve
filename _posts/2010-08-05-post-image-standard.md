@@ -1,11 +1,12 @@
 ---
-layout: post
-title: "Post: Image (Standard)"
+title: 'Post: Image (Standard)'
+date: 2010-08-05 00:00:00 Z
 categories:
-  - Post Formats
+- Post Formats
 tags:
-  - image
-  - Post Formats
+- image
+- Post Formats
+layout: post
 ---
 
 The preferred way of using images is placing them in the `/images/` directory and referencing them with an absolute path. Prepending the filename with `{% raw %}{{ site.url }}/images/{% endraw %}` will make sure your images display properly in feeds and such.
